@@ -1,6 +1,7 @@
 library(dplyr)
 library(ggplot2)
 library(stats)
+library(tidyverse)
 
 df <- read.csv("data/climate_change_impact_on_agriculture_2024.csv")
 head(df)
@@ -10,12 +11,7 @@ head(df)
 
 df$Year <- NULL
 df$Region <- NULL
-df$Total_Precipitation_mm <- NULL
 df$Adaptation_Strategies <- NULL
-df$Soil_Health_Index <- NULL
-df$Pesticide_Use_KG_per_HA <- NULL
-df$Fertilizer_Use_KG_per_HA <- NULL
-df$Irrigation_Access_. <- NULL
 df$Economic_Impact_Million_USD <- NULL
 
 head(df)
@@ -55,9 +51,8 @@ ggplot(df, aes(x = CO2_Emissions_MT, y = Crop_Yield_MT_per_HA)) +
   geom_smooth(method = 'lm', col = 'blue') + 
   labs(title = "CO2 Emissions vs Crop Yield")
 
-
 ## Hypothesis test
 head(df)
 
-model <- lm(Crop_Yield_MT_per_HA ~ CO2_Emissions_MT + Average_Temperature_C, data = df)
-
+model <- lm(Crop_Yield_MT_per_HA ~ CO2_Emissions_MT + Average_Temperature_C + Soil_Health_Index +  Fertilizer_Use_KG_per_HA, data = df)
+summary(model)
